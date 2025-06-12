@@ -34,6 +34,7 @@ public class CoordinatesSpec {
 
     @Test
     public void newInstanceShouldSetDirection() {
+        Direction direction = Direction.NORTH;
         assertThat(coordinates.getDirection()).isEqualTo(direction);
     }
 
