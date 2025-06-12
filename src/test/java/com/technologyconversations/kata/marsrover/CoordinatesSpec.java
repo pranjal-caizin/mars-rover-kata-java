@@ -26,6 +26,8 @@ public class CoordinatesSpec {
 
     @Test
     public void newInstanceShouldSetXAndYParams() {
+        Point x = new Point(1, 99);
+        Point y = new Point(2, 99);
         assertThat(coordinates.getX()).isEqualToComparingFieldByField(x);
         assertThat(coordinates.getY()).isEqualToComparingFieldByField(y);
     }
