@@ -31,9 +31,8 @@ public class CoordinatesTest {
     }
 
     @Test
-    public void newInstanceShouldSetDirection() {
-        Direction direction = Direction.NORTH;
-        assertThat(coordinates.getDirection()).isEqualTo(direction);
+    public void shouldInitializeWithGivenDirection() {
+        assertThat(coordinates.getDirection()).isEqualTo(Direction.NORTH);
     }
 
     @Test
