@@ -25,11 +25,9 @@ public class CoordinatesTest {
     }
 
     @Test
-    public void newInstanceShouldSetXAndYParams() {
-        Point x = new Point(1, 99);
-        Point y = new Point(2, 99);
-        assertThat(coordinates.getX()).isEqualToComparingFieldByField(x);
-        assertThat(coordinates.getY()).isEqualToComparingFieldByField(y);
+    public void shouldInitializeWithGivenXAndYPoints() {
+        assertThat(coordinates.getX()).isEqualToComparingFieldByField(new Point(1, 99));
+        assertThat(coordinates.getY()).isEqualToComparingFieldByField(new Point(2, 99));
     }
 
     @Test
