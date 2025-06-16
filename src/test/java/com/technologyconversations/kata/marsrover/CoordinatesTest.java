@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class CoordinatesSpec {
+public class CoordinatesTest {
 
     private Coordinates coordinates;
     private Point x;
