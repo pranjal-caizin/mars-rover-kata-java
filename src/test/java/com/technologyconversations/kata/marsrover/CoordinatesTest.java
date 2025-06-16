@@ -36,7 +36,7 @@ public class CoordinatesTest {
     }
 
     @Test
-    public void newInstanceShouldSetObstacles() {
+    public void shouldInitializeWithGivenObstacles() {
         assertThat(coordinates.getObstacles()).hasSameElementsAs(obstacles);
     }
 
