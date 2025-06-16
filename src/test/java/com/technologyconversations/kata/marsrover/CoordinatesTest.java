@@ -17,7 +17,7 @@ public class CoordinatesTest {
     private final Direction direction = Direction.NORTH;
 
     @Before
-    public void beforeCoordinatesTest() {
+    public void setUp() {
         x = new Point(1, 99);
         y = new Point(2, 99);
         obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
@@ -44,7 +44,9 @@ public class CoordinatesTest {
     public void moveForwardShouldIncreaseYWhenDirectionIsNorth() {
         Point expected = new Point(y.getLocation() + 1, y.getMaxLocation());
         coordinates.setDirection(Direction.NORTH);
+
         coordinates.moveForward();
+
         assertThat(coordinates.getY()).isEqualToComparingFieldByField(expected);
     }
 
@@ -52,7 +54,9 @@ public class CoordinatesTest {
     public void moveForwardShouldIncreaseXWhenDirectionIsEast() {
         Point expected = new Point(x.getLocation() + 1, x.getMaxLocation());
         coordinates.setDirection(Direction.EAST);
+
         coordinates.moveForward();
+
         assertThat(coordinates.getX()).isEqualToComparingFieldByField(expected);
     }
 
@@ -60,7 +64,9 @@ public class CoordinatesTest {
     public void moveForwardShouldDecreaseYWhenDirectionIsSouth() {
         Point expected = new Point(y.getLocation() - 1, y.getMaxLocation());
         coordinates.setDirection(Direction.SOUTH);
+
         coordinates.moveForward();
+
         assertThat(coordinates.getY()).isEqualToComparingFieldByField(expected);
     }
 
@@ -68,7 +74,9 @@ public class CoordinatesTest {
     public void moveForwardShouldDecreaseXWhenDirectionIsWest() {
         Point expected = new Point(x.getLocation() - 1, x.getMaxLocation());
         coordinates.setDirection(Direction.WEST);
+
         coordinates.moveForward();
+
         assertThat(coordinates.getX()).isEqualToComparingFieldByField(expected);
     }
 
@@ -76,8 +84,10 @@ public class CoordinatesTest {
     public void moveForwardShouldNotChangeLocationsWhenObstacleIsFound() {
         int expected = x.getLocation();
         coordinates.setDirection(Direction.EAST);
-        coordinates.setObstacles(Arrays.asList(new Obstacle(x.getLocation() + 1, y.getLocation())));
+        coordinates.setObstacles(List.of(new Obstacle(x.getLocation() + 1, y.getLocation())));
+
         coordinates.move(coordinates.getDirection());
+
         assertThat(coordinates.getX().getLocation()).isEqualTo(expected);
     }
 
@@ -85,7 +95,9 @@ public class CoordinatesTest {
     public void moveBackwardShouldDecreaseYWhenDirectionIsNorth() {
         Point expected = new Point(y.getLocation() - 1, y.getMaxLocation());
         coordinates.setDirection(Direction.NORTH);
+
         coordinates.moveBackward();
+
         assertThat(coordinates.getY()).isEqualToComparingFieldByField(expected);
     }
 
@@ -93,7 +105,9 @@ public class CoordinatesTest {
     public void moveBackwardShouldDecreaseXWhenDirectionIsEast() {
         Point expected = new Point(x.getLocation() - 1, x.getMaxLocation());
         coordinates.setDirection(Direction.EAST);
+
         coordinates.moveBackward();
+
         assertThat(coordinates.getX()).isEqualToComparingFieldByField(expected);
     }
 
@@ -101,7 +115,9 @@ public class CoordinatesTest {
     public void moveBackwardShouldIncreaseYWhenDirectionIsSouth() {
         Point expected = new Point(y.getLocation() + 1, y.getMaxLocation());
         coordinates.setDirection(Direction.SOUTH);
+
         coordinates.moveBackward();
+
         assertThat(coordinates.getY()).isEqualToComparingFieldByField(expected);
     }
 
@@ -109,7 +125,9 @@ public class CoordinatesTest {
     public void moveBackwardShouldIncreaseXWhenDirectionIsWest() {
         Point expected = new Point(x.getLocation() + 1, x.getMaxLocation());
         coordinates.setDirection(Direction.WEST);
+
         coordinates.moveBackward();
+
         assertThat(coordinates.getX()).isEqualToComparingFieldByField(expected);
     }
 
