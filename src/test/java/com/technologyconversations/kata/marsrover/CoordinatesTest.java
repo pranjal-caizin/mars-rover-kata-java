@@ -132,7 +132,7 @@ public class CoordinatesTest {
     }
 
     @Test
-    public void toStringShouldReturnXAndY() {
+    public void shouldReturnFormattedCoordinatesAndDirection() {
         String expected = x.getLocation() + " X " + y.getLocation() + " " + direction.getShortName();
         assertThat(coordinates.toString()).isEqualTo(expected);
     }

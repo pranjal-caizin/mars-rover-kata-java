@@ -99,7 +99,7 @@ public class RoverSpec {
     @Test
     public void receiveCommandsShouldStopWhenObstacleIsFound() throws Exception {
         int expected = x.getLocation() + 1;
-        rover.getCoordinates().setObstacles(Arrays.asList(new Obstacle(expected + 1, y.getLocation())));
+        rover.getCoordinates().setObstacles(List.of(new Obstacle(expected + 1, y.getLocation())));
         rover.getCoordinates().setDirection(Direction.EAST);
         rover.receiveCommands("FFFRF");
         assertThat(rover.getCoordinates().getX().getLocation()).isEqualTo(expected);
