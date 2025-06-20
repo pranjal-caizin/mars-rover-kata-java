@@ -25,8 +25,12 @@ public class CoordinatesTest {
     }
 
     @Test
-    public void shouldInitializeWithGivenXAndYPoints() {
+    public void shouldInitializeWithGivenXPoint() {
         assertThat(coordinates.getX()).isEqualToComparingFieldByField(new Point(1, 99));
+    }
+
+    @Test
+    public void shouldInitializeWithGivenYPoint() {
         assertThat(coordinates.getY()).isEqualToComparingFieldByField(new Point(2, 99));
     }
 
