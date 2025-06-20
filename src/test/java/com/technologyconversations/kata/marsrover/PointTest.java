@@ -22,8 +22,12 @@ public class PointTest {
     }
 
     @Test
-    public void newInstanceShouldSetLocationAndMaxLocationParams() {
+    public void newInstanceShouldSetLocation() {
         assertThat(point.getLocation()).isEqualTo(location);
+    }
+
+    @Test
+    public void newInstanceShouldSetMaxLocationParams() {
         assertThat(point.getMaxLocation()).isEqualTo(maxLocation);
     }
 
