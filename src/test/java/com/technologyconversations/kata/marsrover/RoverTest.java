@@ -45,44 +45,44 @@ public class RoverTest {
     }
 
     @Test
-    public void receiveSingleCommandShouldMoveForwardWhenCommandIsF() throws Exception {
+    public void shouldMoveForwardWhenCommandIsF() throws Exception {
         int expected = y.getLocation() + 1;
         rover.receiveSingleCommand('F');
         assertThat(rover.getCoordinates().getY().getLocation()).isEqualTo(expected);
     }
 
     @Test
-    public void receiveSingleCommandShouldMoveBackwardWhenCommandIsB() throws Exception {
+    public void shouldMoveBackwardWhenCommandIsB() throws Exception {
         int expected = y.getLocation() - 1;
         rover.receiveSingleCommand('B');
         assertThat(rover.getCoordinates().getY().getLocation()).isEqualTo(expected);
     }
 
     @Test
-    public void receiveSingleCommandShouldTurnLeftWhenCommandIsL() throws Exception {
+    public void shouldTurnLeftWhenCommandIsL() throws Exception {
         rover.receiveSingleCommand('L');
         assertThat(rover.getCoordinates().getDirection()).isEqualTo(Direction.WEST);
     }
 
     @Test
-    public void receiveSingleCommandShouldTurnRightWhenCommandIsR() throws Exception {
+    public void shouldTurnRightWhenCommandIsR() throws Exception {
         rover.receiveSingleCommand('R');
         assertThat(rover.getCoordinates().getDirection()).isEqualTo(Direction.EAST);
     }
 
     @Test
-    public void receiveSingleCommandShouldIgnoreCase() throws Exception {
+    public void shouldIgnoreCaseInCommands() throws Exception {
         rover.receiveSingleCommand('r');
         assertThat(rover.getCoordinates().getDirection()).isEqualTo(Direction.EAST);
     }
 
     @Test(expected = Exception.class)
-    public void receiveSingleCommandShouldThrowExceptionWhenCommandIsUnknown() throws Exception {
+    public void shouldThrowExceptionWhenCommandIsUnknown() throws Exception {
         rover.receiveSingleCommand('X');
     }
 
     @Test
-    public void receiveCommandsShouldBeAbleToReceiveMultipleCommands() throws Exception {
+    public void shouldBeAbleToReceiveMultipleCommands() throws Exception {
         int expected = x.getLocation() + 1;
         rover.receiveCommands("RFR");
         assertThat(rover.getCoordinates().getX().getLocation()).isEqualTo(expected);
@@ -97,7 +97,7 @@ public class RoverTest {
     }
 
     @Test
-    public void receiveCommandsShouldStopWhenObstacleIsFound() throws Exception {
+    public void shouldStopWhenObstacleIsFound() throws Exception {
         int expected = x.getLocation() + 1;
         rover.getCoordinates().setObstacles(List.of(new Obstacle(expected + 1, y.getLocation())));
         rover.getCoordinates().setDirection(Direction.EAST);
@@ -107,14 +107,14 @@ public class RoverTest {
     }
 
     @Test
-    public void positionShouldReturnXYAndDirection() throws Exception {
+    public void positionShouldReturnFormattedCoordinates() throws Exception {
         rover.receiveCommands("LFFFRFF");
         assertThat(rover.getPosition()).isEqualTo("8 X 4 N");
     }
 
     @Test
     public void positionShouldReturnNokWhenObstacleIsFound() throws Exception {
-        rover.getCoordinates().setObstacles(Arrays.asList(new Obstacle(x.getLocation() + 1, y.getLocation())));
+        rover.getCoordinates().setObstacles(List.of(new Obstacle(x.getLocation() + 1, y.getLocation())));
         rover.getCoordinates().setDirection(Direction.EAST);
         rover.receiveCommands("F");
         assertThat(rover.getPosition()).endsWith(" NOK");
