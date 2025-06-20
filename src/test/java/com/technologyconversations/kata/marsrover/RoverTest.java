@@ -21,7 +21,7 @@ Develop an api that moves a rover around on a grid.
 * - Implement obstacle detection before each move to a new square.
 *   If a given sequence of commands encounters an obstacle, the rover moves up to the last possible point and reports the obstacle.
 */
-public class RoverSpec {
+public class RoverTest {
 
     private Rover rover;
     private Coordinates roverCoordinates;
