@@ -1,12 +1,7 @@
 package com.technologyconversations.kata.marsrover;
 
-import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import static org.assertj.core.api.Assertions.*;
 
 /*
@@ -23,101 +18,119 @@ Develop an api that moves a rover around on a grid.
 */
 public class RoverTest {
 
-    private Rover rover;
-    private Coordinates roverCoordinates;
-    private final Direction direction = Direction.NORTH;
-    private Point x;
-    private Point y;
-    private List<Obstacle> obstacles;
-
-    @Before
-    public void beforeRoverTest() {
-        x = new Point(1, 9);
-        y = new Point(2, 9);
-        obstacles = new ArrayList<Obstacle>();
-        roverCoordinates = new Coordinates(x, y, direction, obstacles);
-        rover = new Rover(roverCoordinates);
-    }
-
     @Test
     public void newInstanceShouldSetRoverCoordinatesAndDirection() {
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.NORTH);
+        Rover rover = new Rover(roverCoordinates);
         assertThat(rover.getCoordinates()).isEqualToComparingFieldByField(roverCoordinates);
     }
 
     @Test
     public void shouldMoveForwardWhenCommandIsF() throws Exception {
-        int expected = y.getLocation() + 1;
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.NORTH);
+        Rover rover = new Rover(roverCoordinates);
+
         rover.receiveSingleCommand('F');
-        assertThat(rover.getCoordinates().getY().getLocation()).isEqualTo(expected);
+        assertThat(rover.getCoordinates().getY().getLocation()).isEqualTo(3);
     }
 
     @Test
     public void shouldMoveBackwardWhenCommandIsB() throws Exception {
-        int expected = y.getLocation() - 1;
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.NORTH);
+        Rover rover = new Rover(roverCoordinates);
+
         rover.receiveSingleCommand('B');
-        assertThat(rover.getCoordinates().getY().getLocation()).isEqualTo(expected);
+        assertThat(rover.getCoordinates().getY().getLocation()).isEqualTo(1);
     }
 
     @Test
     public void shouldTurnLeftWhenCommandIsL() throws Exception {
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.NORTH);
+        Rover rover = new Rover(roverCoordinates);
+
         rover.receiveSingleCommand('L');
         assertThat(rover.getCoordinates().getDirection()).isEqualTo(Direction.WEST);
     }
 
     @Test
     public void shouldTurnRightWhenCommandIsR() throws Exception {
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.NORTH);
+        Rover rover = new Rover(roverCoordinates);
+
         rover.receiveSingleCommand('R');
         assertThat(rover.getCoordinates().getDirection()).isEqualTo(Direction.EAST);
     }
 
     @Test
     public void shouldIgnoreCaseInCommands() throws Exception {
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.NORTH);
+        Rover rover = new Rover(roverCoordinates);
+
         rover.receiveSingleCommand('r');
         assertThat(rover.getCoordinates().getDirection()).isEqualTo(Direction.EAST);
     }
 
     @Test(expected = Exception.class)
     public void shouldThrowExceptionWhenCommandIsUnknown() throws Exception {
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.NORTH);
+        Rover rover = new Rover(roverCoordinates);
+
         rover.receiveSingleCommand('X');
     }
 
     @Test
     public void shouldBeAbleToReceiveMultipleCommands() throws Exception {
-        int expected = x.getLocation() + 1;
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.NORTH);
+        Rover rover = new Rover(roverCoordinates);
+
         rover.receiveCommands("RFR");
-        assertThat(rover.getCoordinates().getX().getLocation()).isEqualTo(expected);
+        assertThat(rover.getCoordinates().getX().getLocation()).isEqualTo(2);
         assertThat(rover.getCoordinates().getDirection()).isEqualTo(Direction.SOUTH);
     }
 
     @Test
     public void receiveCommandShouldWhatFromOneEdgeOfTheGridToAnother() throws Exception {
-        int expected = x.getMaxLocation() + x.getLocation() - 2;
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.NORTH);
+        Rover rover = new Rover(roverCoordinates);
+
         rover.receiveCommands("LFFF");
-        assertThat(rover.getCoordinates().getX().getLocation()).isEqualTo(expected);
+        assertThat(rover.getCoordinates().getX().getLocation()).isEqualTo(8);
     }
 
     @Test
     public void shouldStopWhenObstacleIsFound() throws Exception {
-        int expected = x.getLocation() + 1;
-        rover.getCoordinates().setObstacles(List.of(new Obstacle(expected + 1, y.getLocation())));
-        rover.getCoordinates().setDirection(Direction.EAST);
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.EAST);
+        Rover rover = new Rover(roverCoordinates);
+
+        rover.getCoordinates().setObstacles(List.of(new Obstacle(3, 2)));
+
         rover.receiveCommands("FFFRF");
-        assertThat(rover.getCoordinates().getX().getLocation()).isEqualTo(expected);
+        assertThat(rover.getCoordinates().getX().getLocation()).isEqualTo(2);
         assertThat(rover.getCoordinates().getDirection()).isEqualTo(Direction.EAST);
     }
 
     @Test
     public void positionShouldReturnFormattedCoordinates() throws Exception {
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.NORTH);
+        Rover rover = new Rover(roverCoordinates);
+
         rover.receiveCommands("LFFFRFF");
         assertThat(rover.getPosition()).isEqualTo("8 X 4 N");
     }
 
     @Test
     public void positionShouldReturnNokWhenObstacleIsFound() throws Exception {
-        rover.getCoordinates().setObstacles(List.of(new Obstacle(x.getLocation() + 1, y.getLocation())));
-        rover.getCoordinates().setDirection(Direction.EAST);
+        Coordinates roverCoordinates = createCoordinates(1, 9, 2, 9, Direction.EAST);
+        Rover rover = new Rover(roverCoordinates);
+
+        rover.getCoordinates().setObstacles(List.of(new Obstacle(2, 2)));
+
         rover.receiveCommands("F");
         assertThat(rover.getPosition()).endsWith(" NOK");
+    }
+
+    private Coordinates createCoordinates(int xLoc, int xMaxLoc, int yLoc, int yMaxLoc, Direction direction) {
+        return new Coordinates(new Point(xLoc, xMaxLoc), new Point(yLoc, yMaxLoc), direction, List.of());
     }
 
 }
