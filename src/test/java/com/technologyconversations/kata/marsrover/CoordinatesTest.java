@@ -1,53 +1,43 @@
 package com.technologyconversations.kata.marsrover;
 
-import org.junit.Before;
 import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
-
 import static org.assertj.core.api.Assertions.*;
 
 public class CoordinatesTest {
 
-    private Coordinates coordinates;
-    private Point x;
-    private Point y;
-    private List<Obstacle> obstacles;
-    private final Direction direction = Direction.NORTH;
-
-    @Before
-    public void setUp() {
-        x = new Point(1, 99);
-        y = new Point(2, 99);
-        obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
-        coordinates = new Coordinates(x, y, direction, obstacles);
-    }
-
     @Test
     public void shouldInitializeWithGivenXPoint() {
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.NORTH, List.of());
         assertThat(coordinates.getX()).isEqualToComparingFieldByField(new Point(1, 99));
     }
 
     @Test
     public void shouldInitializeWithGivenYPoint() {
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.NORTH, List.of());
         assertThat(coordinates.getY()).isEqualToComparingFieldByField(new Point(2, 99));
     }
 
     @Test
     public void shouldInitializeWithGivenDirection() {
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.NORTH, List.of());
         assertThat(coordinates.getDirection()).isEqualTo(Direction.NORTH);
     }
 
     @Test
     public void shouldInitializeWithGivenObstacles() {
+        List<Obstacle> obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.NORTH, obstacles);
         assertThat(coordinates.getObstacles()).hasSameElementsAs(obstacles);
     }
 
     @Test
     public void moveForwardShouldIncreaseYWhenDirectionIsNorth() {
-        Point expected = new Point(y.getLocation() + 1, y.getMaxLocation());
-        coordinates.setDirection(Direction.NORTH);
+        List<Obstacle> obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.NORTH, obstacles);
+
+        Point expected = new Point(3, 99);
 
         coordinates.moveForward();
 
@@ -56,8 +46,10 @@ public class CoordinatesTest {
 
     @Test
     public void moveForwardShouldIncreaseXWhenDirectionIsEast() {
-        Point expected = new Point(x.getLocation() + 1, x.getMaxLocation());
-        coordinates.setDirection(Direction.EAST);
+        List<Obstacle> obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.EAST, obstacles);
+
+        Point expected = new Point(2, 99);
 
         coordinates.moveForward();
 
@@ -66,8 +58,10 @@ public class CoordinatesTest {
 
     @Test
     public void moveForwardShouldDecreaseYWhenDirectionIsSouth() {
-        Point expected = new Point(y.getLocation() - 1, y.getMaxLocation());
-        coordinates.setDirection(Direction.SOUTH);
+        List<Obstacle> obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.SOUTH, obstacles);
+
+        Point expected = new Point(1, 99);
 
         coordinates.moveForward();
 
@@ -76,8 +70,10 @@ public class CoordinatesTest {
 
     @Test
     public void moveForwardShouldDecreaseXWhenDirectionIsWest() {
-        Point expected = new Point(x.getLocation() - 1, x.getMaxLocation());
-        coordinates.setDirection(Direction.WEST);
+        List<Obstacle> obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.WEST, obstacles);
+
+        Point expected = new Point(0, 99);
 
         coordinates.moveForward();
 
@@ -86,19 +82,22 @@ public class CoordinatesTest {
 
     @Test
     public void moveForwardShouldNotChangeLocationsWhenObstacleIsFound() {
-        int expected = x.getLocation();
-        coordinates.setDirection(Direction.EAST);
-        coordinates.setObstacles(List.of(new Obstacle(x.getLocation() + 1, y.getLocation())));
+        List<Obstacle> obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.EAST, obstacles);
+
+        coordinates.setObstacles(List.of(new Obstacle(2, 2)));
 
         coordinates.move(coordinates.getDirection());
 
-        assertThat(coordinates.getX().getLocation()).isEqualTo(expected);
+        assertThat(coordinates.getX().getLocation()).isEqualTo(1);
     }
 
     @Test
     public void moveBackwardShouldDecreaseYWhenDirectionIsNorth() {
-        Point expected = new Point(y.getLocation() - 1, y.getMaxLocation());
-        coordinates.setDirection(Direction.NORTH);
+        List<Obstacle> obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.NORTH, obstacles);
+
+        Point expected = new Point(1, 99);
 
         coordinates.moveBackward();
 
@@ -107,8 +106,10 @@ public class CoordinatesTest {
 
     @Test
     public void moveBackwardShouldDecreaseXWhenDirectionIsEast() {
-        Point expected = new Point(x.getLocation() - 1, x.getMaxLocation());
-        coordinates.setDirection(Direction.EAST);
+        List<Obstacle> obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.EAST, obstacles);
+
+        Point expected = new Point(0, 99);
 
         coordinates.moveBackward();
 
@@ -117,8 +118,10 @@ public class CoordinatesTest {
 
     @Test
     public void moveBackwardShouldIncreaseYWhenDirectionIsSouth() {
-        Point expected = new Point(y.getLocation() + 1, y.getMaxLocation());
-        coordinates.setDirection(Direction.SOUTH);
+        List<Obstacle> obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.SOUTH, obstacles);
+
+        Point expected = new Point(3, 99);
 
         coordinates.moveBackward();
 
@@ -127,8 +130,10 @@ public class CoordinatesTest {
 
     @Test
     public void moveBackwardShouldIncreaseXWhenDirectionIsWest() {
-        Point expected = new Point(x.getLocation() + 1, x.getMaxLocation());
-        coordinates.setDirection(Direction.WEST);
+        List<Obstacle> obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.WEST, obstacles);
+
+        Point expected = new Point(2, 99);
 
         coordinates.moveBackward();
 
@@ -137,8 +142,16 @@ public class CoordinatesTest {
 
     @Test
     public void shouldReturnFormattedCoordinatesAndDirection() {
-        String expected = x.getLocation() + " X " + y.getLocation() + " " + direction.getShortName();
+        List<Obstacle> obstacles = Arrays.asList(new Obstacle(20, 20), new Obstacle(30, 30));
+        Direction direction = Direction.EAST;
+        Coordinates coordinates = createCoordinates(1, 99, 2, 99, direction, obstacles);
+
+        String expected = "1 X 2 " + direction.getShortName();
         assertThat(coordinates.toString()).isEqualTo(expected);
+    }
+
+    private Coordinates createCoordinates(int xLoc, int xMaxLoc, int yLoc, int yMaxLoc, Direction direction, List<Obstacle> obstacles) {
+        return new Coordinates(new Point(xLoc, xMaxLoc), new Point(yLoc, yMaxLoc), direction, obstacles);
     }
 
 }
