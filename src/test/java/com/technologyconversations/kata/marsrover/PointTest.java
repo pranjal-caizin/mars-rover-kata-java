@@ -1,6 +1,5 @@
 package com.technologyconversations.kata.marsrover;
 
-import org.junit.Before;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.*;
 
@@ -12,47 +11,42 @@ If maximum location is reached, forward/backward methods wrap location.
 */
 public class PointTest {
 
-    private Point point;
-    private final int location = 5;
-    private final int maxLocation = 9;
-
-    @Before
-    public void setUp() {
-        point = new Point(location, maxLocation);
-    }
-
     @Test
     public void newInstanceShouldSetLocation() {
-        assertThat(point.getLocation()).isEqualTo(location);
+        Point point = new Point(5, 9);
+        assertThat(point.getLocation()).isEqualTo(5);
     }
 
     @Test
     public void newInstanceShouldSetMaxLocationParams() {
-        assertThat(point.getMaxLocation()).isEqualTo(maxLocation);
+        Point point = new Point(5, 9);
+        assertThat(point.getMaxLocation()).isEqualTo(9);
     }
 
     @Test
     public void getForwardLocationShouldIncreasePointValueByOne() {
-        int expected = point.getLocation() + 1;
-        assertThat(point.getForwardLocation()).isEqualTo(expected);
+        Point point = new Point(5, 9);
+        assertThat(point.getForwardLocation()).isEqualTo(6);
     }
 
     @Test
     public void getBackwardLocationShouldDecreasePointValueByOne() {
-        int expected = point.getLocation() - 1;
-        assertThat(point.getBackwardLocation()).isEqualTo(expected);
+        Point point = new Point(5, 9);
+        assertThat(point.getBackwardLocation()).isEqualTo(4);
     }
 
     @Test
     public void getForwardLocationShouldSetValueToZeroIfMaxLocationIsPassed() {
-        point.setLocation(point.getMaxLocation());
+        Point point = new Point(5, 9);
+        point.setLocation(9);
         assertThat(point.getForwardLocation()).isZero();
     }
 
     @Test
     public void getBackwardLocationShouldSetValueToMaxLocationIfZeroLocationIsPassed() {
+        Point point = new Point(5, 9);
         point.setLocation(0);
-        assertThat(point.getBackwardLocation()).isEqualTo(point.getMaxLocation());
+        assertThat(point.getBackwardLocation()).isEqualTo(9);
     }
 
 }
