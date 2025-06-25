@@ -10,13 +10,13 @@ public class CoordinatesTest {
     @Test
     public void shouldInitializeWithGivenXPoint() {
         Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.NORTH, List.of());
-        assertThat(coordinates.getX()).isEqualToComparingFieldByField(new Point(1, 99));
+        assertThat(coordinates.getX()).usingRecursiveComparison().isEqualTo(new Point(1, 99));
     }
 
     @Test
     public void shouldInitializeWithGivenYPoint() {
         Coordinates coordinates = createCoordinates(1, 99, 2, 99, Direction.NORTH, List.of());
-        assertThat(coordinates.getY()).isEqualToComparingFieldByField(new Point(2, 99));
+        assertThat(coordinates.getY()).usingRecursiveComparison().isEqualTo(new Point(2, 99));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class CoordinatesTest {
 
         coordinates.moveForward();
 
-        assertThat(coordinates.getY()).isEqualToComparingFieldByField(expected);
+        assertThat(coordinates.getY()).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class CoordinatesTest {
 
         coordinates.moveForward();
 
-        assertThat(coordinates.getX()).isEqualToComparingFieldByField(expected);
+        assertThat(coordinates.getX()).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class CoordinatesTest {
 
         coordinates.moveForward();
 
-        assertThat(coordinates.getY()).isEqualToComparingFieldByField(expected);
+        assertThat(coordinates.getY()).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class CoordinatesTest {
 
         coordinates.moveForward();
 
-        assertThat(coordinates.getX()).isEqualToComparingFieldByField(expected);
+        assertThat(coordinates.getX()).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class CoordinatesTest {
 
         coordinates.moveBackward();
 
-        assertThat(coordinates.getY()).isEqualToComparingFieldByField(expected);
+        assertThat(coordinates.getY()).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
@@ -113,7 +113,7 @@ public class CoordinatesTest {
 
         coordinates.moveBackward();
 
-        assertThat(coordinates.getX()).isEqualToComparingFieldByField(expected);
+        assertThat(coordinates.getX()).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
@@ -125,7 +125,7 @@ public class CoordinatesTest {
 
         coordinates.moveBackward();
 
-        assertThat(coordinates.getY()).isEqualToComparingFieldByField(expected);
+        assertThat(coordinates.getY()).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class CoordinatesTest {
 
         coordinates.moveBackward();
 
-        assertThat(coordinates.getX()).isEqualToComparingFieldByField(expected);
+        assertThat(coordinates.getX()).usingRecursiveComparison().isEqualTo(expected);
     }
 
     @Test
